@@ -1,29 +1,29 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "simplesorting",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Simple Sorting Mod",
+  "description": "Work-in-Progress mod. It will be all about sorting inventories.",
   "authors": [
-    "Me!"
+    "Noitcereon"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/Noitcereon/simple-sorting",
+    "sources": "https://github.com/Noitcereon/simple-sorting"
   },
 
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/modid/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "com.noitcereon.simplesorting.SimpleSortingMod"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "simplesorting.mixins.json"
   ],
 
   "depends": {
