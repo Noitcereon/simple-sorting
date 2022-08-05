@@ -1,10 +1,12 @@
 package com.noitcereon.simplesorting;
 
+import com.noitcereon.simplesorting.item.MyItem;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.FoodComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.slf4j.Logger;
@@ -14,11 +16,8 @@ public class SimpleSortingMod implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
-	public static final Logger LOGGER = LoggerFactory.getLogger("simplesorting");
-	public static final Item MY_ITEM = new Item(
-			new FabricItemSettings()
-					.group(ItemGroup.MISC)
-	);
+	public static final Logger LOGGER = LoggerFactory.getLogger(ModInfo.MOD_ID);
+	public static final Item MY_ITEM = new MyItem(new FabricItemSettings().group(ItemGroup.MISC));
 
 	@Override
 	public void onInitialize() {
@@ -26,7 +25,8 @@ public class SimpleSortingMod implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		LOGGER.info("Initialising simplesorting.");
-		Registry.register(Registry.ITEM, new Identifier("simplesorting", "my_item"), MY_ITEM);
+		LOGGER.info("Initialising {}", ModInfo.MOD_ID);
+		Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, "my_item"), MY_ITEM);
+		FuelRegistry.INSTANCE.add(MY_ITEM, 600);
 	}
 }
