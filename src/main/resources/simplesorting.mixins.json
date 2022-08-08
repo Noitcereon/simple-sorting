@@ -4,6 +4,7 @@
   "package": "com.noitcereon.simplesorting.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "SortInventory"
   ],
   "client": [
     "ExampleMixin"
