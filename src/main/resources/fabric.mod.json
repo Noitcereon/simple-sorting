@@ -14,7 +14,7 @@
   },
 
   "license": "MIT",
-  "icon": "assets/simplesorting/icon.png",
+  "icon": "assets/simplesorting/simple-sorting-logo.jpg",
 
   "environment": "*",
   "entrypoints": {
