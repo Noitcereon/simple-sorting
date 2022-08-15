@@ -25,18 +25,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChestBlock.class)
 public abstract class SortInventory {
-
-    @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
-    protected ActionResult sortChestOnInteraction(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> callbackInfo) {
-        if (world.isClient) return ActionResult.SUCCESS;
-        Inventory chestInventory = ChestBlock.getInventory((ChestBlock) state.getBlock(), state, world, pos, false);
-
-        if (chestInventory == null) return ActionResult.PASS;
-        chestInventory.markDirty();
-
-        boolean isSorted = InventorySorter.sortInventory(chestInventory);
-        if (isSorted) return ActionResult.CONSUME_PARTIAL;
-        else return ActionResult.PASS;
-    }
-
+// The below commented out code is kept only for documentation purposes. It shows my own example of a mixin.
+//    @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
+//    protected ActionResult sortChestOnInteraction(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> callbackInfo) {
+//        if (world.isClient) return ActionResult.SUCCESS;
+//        Inventory chestInventory = ChestBlock.getInventory((ChestBlock) state.getBlock(), state, world, pos, false);
+//
+//        if (chestInventory == null) return ActionResult.PASS;
+//
+//        boolean isSorted = InventorySorter.sortInventory(chestInventory);
+//        if (isSorted){
+//            chestInventory.markDirty();
+//            return ActionResult.CONSUME_PARTIAL;
+//        }
+//        else return ActionResult.PASS;
+//    }
 }
