@@ -32,9 +32,8 @@ public class SimpleSortingMod implements ModInitializer {
 				sortCurrentlyOpenInventory(player);
 			});
 		});
-
-
 	}
+
 	private void sortCurrentlyOpenInventory(ServerPlayerEntity player) {
 		try {
 			ScreenHandler screenHandler = player.currentScreenHandler;
