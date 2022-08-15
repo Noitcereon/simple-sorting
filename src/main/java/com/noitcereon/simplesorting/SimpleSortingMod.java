@@ -2,18 +2,11 @@ package com.noitcereon.simplesorting;
 
 import com.noitcereon.simplesorting.sorting.InventorySorter;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
-import net.fabricmc.fabric.api.client.screen.v1.Screens;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.gui.screen.ingame.GenericContainerScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.GenericContainerScreenHandler;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,22 +33,23 @@ public class SimpleSortingMod implements ModInitializer {
 			});
 		});
 
-		ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
-			if (screen instanceof GenericContainerScreen) {
-				Screens.getButtons(screen).add(
-						new ButtonWidget((scaledWidth / 100) * 70, (scaledHeight / 100) * 5, 40, 16, Text.literal("Sort"), (btn) -> {
-							LOGGER.debug("Sort Button pressed");
-							PacketByteBuf packet = PacketByteBufs.empty();
-							ClientPlayNetworking.send(INVENTORY_SORT_REQUEST_ID, packet); // this triggers the global receiver registered with the same identifier.
-						})
-				);
-			}
-		});
+
 	}
 	private void sortCurrentlyOpenInventory(ServerPlayerEntity player) {
-		GenericContainerScreenHandler screenHandler = (GenericContainerScreenHandler) player.currentScreenHandler;
-		Inventory containerInventory = screenHandler.getInventory();
-		InventorySorter.sortInventory(containerInventory);
-		containerInventory.markDirty();
+		try {
+			ScreenHandler screenHandler = player.currentScreenHandler;
+			if(screenHandler.getClass() != GenericContainerScreenHandler.class){
+				throw new IllegalArgumentException(screenHandler.getClass() + "is an invalid screen handler. Should be a GenericContainerScreenHandler.");
+			}
+			if(screenHandler.canUse(player)){
+				GenericContainerScreenHandler containerScreenHandler = (GenericContainerScreenHandler) screenHandler;
+				Inventory containerInventory = containerScreenHandler.getInventory();
+				InventorySorter.sortInventory(containerInventory);
+				containerInventory.markDirty();
+			}
+		}
+		catch(IllegalArgumentException exception){
+			LOGGER.warn(exception.getMessage());
+		}
 	}
 }

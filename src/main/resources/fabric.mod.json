@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "com.noitcereon.simplesorting.SimpleSortingMod"
+    ],
+    "client": [
+      "com.noitcereon.simplesorting.SimpleSortingModClient"
     ]
   },
   "mixins": [
