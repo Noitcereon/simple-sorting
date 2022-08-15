@@ -23,6 +23,7 @@ public class SimpleSortingMod implements ModInitializer {
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger("simplesorting");
+	public static final Identifier INVENTORY_SORT_REQUEST_ID = new Identifier(ModInfo.MOD_ID, "inventory-sort-request");
 
 	@Override
 	public void onInitialize() {
@@ -31,23 +32,21 @@ public class SimpleSortingMod implements ModInitializer {
 		// Proceed with mild caution.
 		LOGGER.info("Initialising {}", ModInfo.MOD_ID);
 
+		ServerPlayNetworking.registerGlobalReceiver(INVENTORY_SORT_REQUEST_ID, (server, player, handler, buf, responseSender) -> {
+			server.execute(() -> {
+				LOGGER.debug("Server received package: " + INVENTORY_SORT_REQUEST_ID.getNamespace() + " " + INVENTORY_SORT_REQUEST_ID.getPath());
+
+				sortCurrentlyOpenInventory(player);
+			});
+		});
+
 		ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
 			if (screen instanceof GenericContainerScreen) {
 				Screens.getButtons(screen).add(
 						new ButtonWidget((scaledWidth / 100) * 70, (scaledHeight / 100) * 5, 40, 16, Text.literal("Sort"), (btn) -> {
 							LOGGER.debug("Sort Button pressed");
-							Identifier identifier = new Identifier(ModInfo.MOD_ID, "inventory-sort-request");
-
-							ServerPlayNetworking.registerGlobalReceiver(identifier, (server, player, handler, buf, responseSender) -> {
-								client.execute(() -> {
-									LOGGER.debug("Server received package: " + identifier.getNamespace() + " " + identifier.getPath());
-
-									sortCurrentlyOpenInventory(player);
-								});
-							});
-
 							PacketByteBuf packet = PacketByteBufs.empty();
-							ClientPlayNetworking.send(identifier, packet); // this triggers the global receiver registered with the same identifier.
+							ClientPlayNetworking.send(INVENTORY_SORT_REQUEST_ID, packet); // this triggers the global receiver registered with the same identifier.
 						})
 				);
 			}
