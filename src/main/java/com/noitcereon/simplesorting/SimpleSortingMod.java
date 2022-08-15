@@ -37,7 +37,7 @@ public class SimpleSortingMod implements ModInitializer {
     private void sortCurrentlyOpenInventory(ServerPlayerEntity player) {
         ScreenHandler screenHandler = player.currentScreenHandler;
         if (screenHandler instanceof GenericContainerScreenHandler containerScreenHandler) {
-            if (!screenHandler.canUse(player)){
+            if (!screenHandler.canUse(player)) {
                 LOGGER.info("Failed to sort, because player cannot use the container anymore.");
                 return;
             }
@@ -45,9 +45,9 @@ public class SimpleSortingMod implements ModInitializer {
             Inventory containerInventory = containerScreenHandler.getInventory();
             InventorySorter.sortInventory(containerInventory);
             containerInventory.markDirty();
-        }
-        else{
-            LOGGER.warn("player.currentScreenHandler returned {}. Simply Sorting uses GenericContainerScreenHandler to function.", screenHandler.getClass());
+        } else {
+            String currentScreenHandlerReturnType = screenHandler == null ? "Null" : screenHandler.getClass().getName();
+            LOGGER.warn("player.currentScreenHandler returned {}. Simply Sorting uses GenericContainerScreenHandler to function.", currentScreenHandlerReturnType);
         }
     }
 }
