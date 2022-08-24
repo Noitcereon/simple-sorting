@@ -6,8 +6,8 @@ Simple Sorting is a Minecraft mod - made with [Fabric](https://github.com/Fabric
 
 This mod requires Fabric Loader and Fabric API. You can get them here: https://fabricmc.net/ if you haven't already.
 
-- Go to the [latest release](https://github.com/Noitcereon/simple-sorting/releases/tag/0.1.0-MC1.19).
-- Download the fabric-simple-sorting-mod-0.1.0.jar 
+- Go to the [latest release](https://github.com/Noitcereon/simple-sorting/releases/tag/0.2.0-MC1.19).
+- Download the fabric-simple-sorting-mod-0.2.0.jar
 - Put it into your mods folder 
     - The mods folder should be located in your .minecraft folder (search for %appdata% and go into the .minecraft folder from there)
     - If the mods folder doesn't exist create it. It MUST be named mods exactly.
