@@ -1,5 +1,6 @@
 package com.noitcereon.simplesorting;
 
+import com.noitcereon.simplesorting.interfaces.IExtendedShulkerBoxScreenHandler;
 import com.noitcereon.simplesorting.sorting.InventorySorter;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -35,19 +36,39 @@ public class SimpleSortingMod implements ModInitializer {
     }
 
     private void sortCurrentlyOpenInventory(ServerPlayerEntity player) {
-        ScreenHandler screenHandler = player.currentScreenHandler;
-        if (screenHandler instanceof GenericContainerScreenHandler containerScreenHandler) {
-            if (!screenHandler.canUse(player)) {
-                LOGGER.info("Failed to sort, because player cannot use the container anymore.");
+        try {
+            ScreenHandler screenHandler = player.currentScreenHandler;
+            if(screenHandler == null){
+                LOGGER.error("Sorting failed, because screenHandler is null.");
                 return;
             }
+            if (screenHandler instanceof GenericContainerScreenHandler containerScreenHandler) {
+                if (canPlayerUse(player, screenHandler)) return;
 
-            Inventory containerInventory = containerScreenHandler.getInventory();
-            InventorySorter.sortInventory(containerInventory);
-            containerInventory.markDirty();
-        } else {
-            String currentScreenHandlerReturnType = screenHandler == null ? "Null" : screenHandler.getClass().getName();
-            LOGGER.warn("player.currentScreenHandler returned {}. Simply Sorting uses GenericContainerScreenHandler to function.", currentScreenHandlerReturnType);
+                Inventory containerInventory = containerScreenHandler.getInventory();
+                InventorySorter.sortInventory(containerInventory);
+                containerInventory.markDirty();
+            } else if (screenHandler instanceof IExtendedShulkerBoxScreenHandler containerScreenHandler) {
+                if (canPlayerUse(player, screenHandler)) return;
+
+                Inventory containerInventory = containerScreenHandler.getInventory();
+                InventorySorter.sortInventory(containerInventory);
+                containerInventory.markDirty();
+
+            } else {
+                String currentScreenHandlerReturnType = screenHandler.getClass().getName();
+                LOGGER.warn("player.currentScreenHandler returned {}, which does not work with Simple Sorting.", currentScreenHandlerReturnType);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Sorting failed, because of this exception: " + e.getMessage());
         }
+    }
+
+    private boolean canPlayerUse(ServerPlayerEntity player, ScreenHandler screenHandler) {
+        if (!screenHandler.canUse(player)) {
+            LOGGER.info("Failed to sort, because player cannot use the container anymore.");
+            return true;
+        }
+        return false;
     }
 }

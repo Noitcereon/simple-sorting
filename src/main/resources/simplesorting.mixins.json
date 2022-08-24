@@ -4,9 +4,9 @@
   "package": "com.noitcereon.simplesorting.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ShulkerBoxScreenHandlerMixin"
   ],
   "client": [
-
   ],
   "injectors": {
     "defaultRequire": 1
