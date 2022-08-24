@@ -4,6 +4,12 @@ Simple Sorting is a Minecraft mod - made with [Fabric](https://github.com/Fabric
 
 ## Installation
 
+There are two ways to install Simple Sorting: manual or semi-automatic with CurseForge.
+
+### CurseForge
+If you don't want to manually install it, you can use CurseForge: https://www.curseforge.com/minecraft/mc-mods/noits-simple-sorting
+
+### Manual
 This mod requires Fabric Loader and Fabric API. You can get them here: https://fabricmc.net/ if you haven't already.
 
 - Go to the [latest release](https://github.com/Noitcereon/simple-sorting/releases/tag/0.2.0-MC1.19).
