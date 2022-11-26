@@ -1,4 +1,6 @@
 # Simple Sorting
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+
 Simple Sorting is a Minecraft mod - made with [Fabric](https://github.com/FabricMC/fabric) - which aims to add one function to Minecraft: inventory sorting.
 
 
@@ -41,3 +43,6 @@ It will always appear on the right side of the screen and near the top. (70% awa
 
 ## Contributions
 Pull Requests are welcome.
+
+## License
+[MIT](https://github.com/Noitcereon/simple-sorting/blob/1.19/LICENSE) © Thomas "Noit" A.
