@@ -38,3 +38,6 @@ It will always appear on the right side of the screen and near the top. (70% awa
 
 ## Maintainer
 [Noitcereon](https://github.com/Noitcereon)
+
+## Contributions
+Pull Requests are welcome.
