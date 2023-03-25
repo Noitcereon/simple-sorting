@@ -44,4 +44,21 @@ class InventorySorterTest {
         assertEquals(expectedDirtInSlotOne, actualAmountInSlotOne);
         assertEquals(expectedDirtInSlotTwo, actualAmountInSlotTwo);
     }
+    @Test
+    void given69Eggs_WhenSortingInventory_ThenCombineIntoFiveStacks(){
+        fail("Test not implemented");
+    }
+
+    @Test
+    void given3Pickaxes_WhenSortingInventory_ThenDoNotCombine(){
+        fail("Test not implemented");
+    }
+    @Test
+    void givenNamedShulkerAndNormalShulkers_WhenSortingInventory_DontCombine(){
+        fail("Test not implemented");
+    }
+    @Test
+    void givenRenamedNameTagAndDefaultNameTags_WhenSortingInventory_DontCombineRenamedTagWithDefaultNameTags(){
+        fail("Test not implemented");
+    }
 }
