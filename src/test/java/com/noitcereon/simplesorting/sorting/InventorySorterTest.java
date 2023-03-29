@@ -114,7 +114,7 @@ class InventorySorterTest {
         fail("Test not implemented");
     }
     @Test
-    void givenFilledShulkerAndNoramlShulker_WhenSortingInventory_DontCombineFilledShulker(){
+    void givenFilledShulkerAndNormalShulker_WhenSortingInventory_DontCombineFilledShulker(){
         fail("Test not implemented");
     }
     @Test
