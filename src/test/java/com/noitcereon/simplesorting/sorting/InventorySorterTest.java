@@ -58,6 +58,10 @@ class InventorySorterTest {
         fail("Test not implemented");
     }
     @Test
+    void givenFilledShulkerAndNoramlShulker_WhenSortingInventory_DontCombineFilledShulker(){
+        fail("Test not implemented");
+    }
+    @Test
     void givenRenamedNameTagAndDefaultNameTags_WhenSortingInventory_DontCombineRenamedTagWithDefaultNameTags(){
         fail("Test not implemented");
     }
