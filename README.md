@@ -42,7 +42,7 @@ It will always appear on the right side of the screen and near the top. (70% awa
 [Noitcereon](https://github.com/Noitcereon)
 
 ## Contributions
-Pull Requests are welcome.
+Pull Requests are welcome, however please try to make [Atomic Commits](https://www.aleksandrhovhannisyan.com/blog/atomic-git-commits/) when doing so.
 
 ## License
 [MIT](https://github.com/Noitcereon/simple-sorting/blob/1.19/LICENSE) © Thomas "Noit" A.
