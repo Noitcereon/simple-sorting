@@ -11,6 +11,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 class InventorySorterTest {
+    private final int slotOne = 0;
+    private final int slotTwo = 1;
+    private final int slotThree = 2;
+    private final int slotFour = 3;
+    private final int slotFive = 4;
+    private final int slotSix = 5;
+    private final int slotEight = 7;
+    private final int slotTen = 9;
+    private final int slotThirtyTwo = 31;
 
     @BeforeAll
     public static void setup(){
@@ -21,10 +30,10 @@ class InventorySorterTest {
     void given100DirtBlocks_WhenSortingInventory_ThenCombineIntoTwoStacksInFirstAndSecondSlot() {
         // Arrange
         Inventory inventory = new SimpleInventory(32);
-        inventory.setStack(0, new ItemStack(Items.DIRT, 5));
-        inventory.setStack(4, new ItemStack(Items.DIRT, 32));
-        inventory.setStack(20, new ItemStack(Items.DIRT, 32));
-        inventory.setStack(6, new ItemStack(Items.DIRT, 32));
+        inventory.setStack(slotOne, new ItemStack(Items.DIRT, 5));
+        inventory.setStack(slotFour, new ItemStack(Items.DIRT, 32));
+        inventory.setStack(slotSix, new ItemStack(Items.DIRT, 32));
+        inventory.setStack(slotThirtyTwo, new ItemStack(Items.DIRT, 32));
         int expectedDirtInSlotOne = 64;
         int expectedDirtInSlotTwo = 37;
         String expectedItemName = "Dirt";
@@ -33,8 +42,8 @@ class InventorySorterTest {
         InventorySorter.sortInventory(inventory);
 
         // Assert
-        ItemStack stackInSlotOne = inventory.getStack(0);
-        ItemStack stackInSlotTwo = inventory.getStack(1);
+        ItemStack stackInSlotOne = inventory.getStack(slotOne);
+        ItemStack stackInSlotTwo = inventory.getStack(slotTwo);
         int actualAmountInSlotOne = stackInSlotOne.getCount();
         int actualAmountInSlotTwo = stackInSlotTwo.getCount();
         String actualItemNameSlotOne = stackInSlotOne.getName().getString();
@@ -51,12 +60,12 @@ class InventorySorterTest {
         int eggAmountSixteen = 16;
         int eggAmountThree = 3;
         int eggAmountTwo = 2;
-        inventory.setStack(0, new ItemStack(Items.EGG, eggAmountSixteen));
-        inventory.setStack(4, new ItemStack(Items.EGG, eggAmountSixteen));
-        inventory.setStack(20, new ItemStack(Items.EGG, eggAmountSixteen));
-        inventory.setStack(6, new ItemStack(Items.EGG, eggAmountSixteen));
-        inventory.setStack(8, new ItemStack(Items.EGG, eggAmountThree));
-        inventory.setStack(12, new ItemStack(Items.EGG, eggAmountTwo));
+        inventory.setStack(slotOne, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setStack(slotFour, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setStack(slotTen, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setStack(slotSix, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setStack(slotEight, new ItemStack(Items.EGG, eggAmountThree));
+        inventory.setStack(slotThirtyTwo, new ItemStack(Items.EGG, eggAmountTwo));
 
         String expectedItemName = "Egg";
         int expectedEggsInFirstFourSlots = 16;
@@ -66,11 +75,11 @@ class InventorySorterTest {
         InventorySorter.sortInventory(inventory);
 
         // Assert
-        ItemStack stackInSlotOne = inventory.getStack(0);
-        ItemStack stackInSlotTwo = inventory.getStack(1);
-        ItemStack stackInSlotThree = inventory.getStack(2);
-        ItemStack stackInSlotFour = inventory.getStack(3);
-        ItemStack stackInSlotFive = inventory.getStack(4);
+        ItemStack stackInSlotOne = inventory.getStack(slotOne);
+        ItemStack stackInSlotTwo = inventory.getStack(slotTwo);
+        ItemStack stackInSlotThree = inventory.getStack(slotThree);
+        ItemStack stackInSlotFour = inventory.getStack(slotFour);
+        ItemStack stackInSlotFive = inventory.getStack(slotFive);
 
         int actualAmountInSlotOne = stackInSlotOne.getCount();
         int actualAmountInSlotTwo = stackInSlotTwo.getCount();
