@@ -11,7 +11,7 @@ public class InventorySorter {
     private InventorySorter(){
         // Prevent instantiation of utility method
     }
-    public static boolean sortInventory(Inventory inventory) {
+    public static void sortInventory(Inventory inventory) {
         Map<Integer, ItemStack> inventoryMap = convertInventoryToMap(inventory);
         List<Map.Entry<Integer, ItemStack>> entriesWithValueSorted = inventoryMap.entrySet().stream().sorted((entry, entry2) -> {
             int itemId = Item.getRawId(entry.getValue().getItem());
@@ -27,7 +27,6 @@ public class InventorySorter {
                 inventory.setStack(slot, entry.getValue());
                 slot++;
         }
-        return true;
     }
 
     /**
