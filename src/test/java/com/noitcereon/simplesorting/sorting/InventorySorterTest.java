@@ -46,7 +46,54 @@ class InventorySorterTest {
     }
     @Test
     void given69Eggs_WhenSortingInventory_ThenCombineIntoFiveStacks(){
-        fail("Test not implemented");
+        // Arrange
+        Inventory inventory = new SimpleInventory(32);
+        int eggAmountSixteen = 16;
+        int eggAmountThree = 3;
+        int eggAmountTwo = 2;
+        inventory.setStack(0, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setStack(4, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setStack(20, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setStack(6, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setStack(8, new ItemStack(Items.EGG, eggAmountThree));
+        inventory.setStack(12, new ItemStack(Items.EGG, eggAmountTwo));
+
+        String expectedItemName = "Egg";
+        int expectedEggsInFirstFourSlots = 16;
+        int expectedEggsInSlotFive = 5;
+
+        // Act
+        InventorySorter.sortInventory(inventory);
+
+        // Assert
+        ItemStack stackInSlotOne = inventory.getStack(0);
+        ItemStack stackInSlotTwo = inventory.getStack(1);
+        ItemStack stackInSlotThree = inventory.getStack(2);
+        ItemStack stackInSlotFour = inventory.getStack(3);
+        ItemStack stackInSlotFive = inventory.getStack(4);
+
+        int actualAmountInSlotOne = stackInSlotOne.getCount();
+        int actualAmountInSlotTwo = stackInSlotTwo.getCount();
+        int actualAmountInSlotThree = stackInSlotThree.getCount();
+        int actualAmountInSlotFour = stackInSlotFour.getCount();
+        int actualAmountInSlotFive = stackInSlotFive.getCount();
+        String actualItemNameSlotOne = stackInSlotOne.getName().getString();
+        String actualItemNameSlotTwo = stackInSlotTwo.getName().getString();
+        String actualItemNameSlotThree = stackInSlotThree.getName().getString();
+        String actualItemNameSlotFour = stackInSlotFour.getName().getString();
+        String actualItemNameSlotFive = stackInSlotFive.getName().getString();
+
+        assertEquals(expectedItemName, actualItemNameSlotOne);
+        assertEquals(expectedItemName, actualItemNameSlotTwo);
+        assertEquals(expectedItemName, actualItemNameSlotThree);
+        assertEquals(expectedItemName, actualItemNameSlotFour);
+        assertEquals(expectedItemName, actualItemNameSlotFive);
+
+        assertEquals(expectedEggsInFirstFourSlots, actualAmountInSlotOne);
+        assertEquals(expectedEggsInFirstFourSlots, actualAmountInSlotTwo);
+        assertEquals(expectedEggsInFirstFourSlots, actualAmountInSlotThree);
+        assertEquals(expectedEggsInFirstFourSlots, actualAmountInSlotFour);
+        assertEquals(expectedEggsInSlotFive, actualAmountInSlotFive);
     }
 
     @Test
