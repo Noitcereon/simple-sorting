@@ -107,7 +107,25 @@ class InventorySorterTest {
 
     @Test
     void given3Pickaxes_WhenSortingInventory_ThenDoNotCombine(){
-        fail("Test not implemented");
+        // Arrange
+        Inventory inventory = new SimpleInventory(32);
+        int expectedStackSize = 1;
+
+        ItemStack expectedItemSlotOne = new ItemStack(Items.DIAMOND_PICKAXE, expectedStackSize);
+        ItemStack expectedItemSlotTwo = new ItemStack(Items.DIAMOND_PICKAXE, expectedStackSize);
+        ItemStack expectedItemSlotThree = new ItemStack(Items.DIAMOND_PICKAXE, expectedStackSize);
+        inventory.setStack(slotTwo, expectedItemSlotOne);
+        inventory.setStack(slotFour, expectedItemSlotTwo);
+        inventory.setStack(slotTen, expectedItemSlotThree);
+
+        // Act
+        InventorySorter.sortInventory(inventory);
+
+        // Assert
+        ItemStack actualItemSlotOne = inventory.getStack(slotOne);
+
+        assertEquals(expectedItemSlotOne, actualItemSlotOne);
+        assertEquals(expectedStackSize, actualItemSlotOne.getCount());
     }
     @Test
     void givenNamedShulkerAndNormalShulkers_WhenSortingInventory_DontCombine(){
