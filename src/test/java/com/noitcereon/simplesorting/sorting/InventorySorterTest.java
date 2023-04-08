@@ -6,6 +6,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.text.Text;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -129,7 +130,26 @@ class InventorySorterTest {
     }
     @Test
     void givenNamedShulkerAndNormalShulkers_WhenSortingInventory_DontCombine(){
-        fail("Test not implemented");
+        // Arrange
+        Inventory inventory = new SimpleInventory(32);
+        int expectedStackSize = 1;
+        ItemStack renamedShulker = new ItemStack(Items.SHULKER_BOX, expectedStackSize);
+        String shulkerCustomName = "Renamed Shulker";
+        renamedShulker.setCustomName(Text.of(shulkerCustomName));
+        ItemStack normalShulker = new ItemStack(Items.SHULKER_BOX, expectedStackSize);
+        inventory.setStack(slotFour, renamedShulker);
+        inventory.setStack(slotTwo, normalShulker);
+        inventory.setStack(slotThirtyTwo, normalShulker);
+
+        // Act
+        InventorySorter.sortInventory(inventory);
+
+        // Assert
+        ItemStack firstStackInInventory = inventory.getStack(slotOne);
+        assertEquals(expectedStackSize, firstStackInInventory.getCount());
+        assertTrue(inventory.containsAny(
+                stack -> stack.getName().getString()
+                        .equals(shulkerCustomName)));
     }
     @Test
     void givenFilledShulkerAndNormalShulker_WhenSortingInventory_DontCombineFilledShulker(){
