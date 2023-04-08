@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class InventorySorterTest {
     private final int slotOne = 0;
     private final int slotTwo = 1;
@@ -23,10 +24,11 @@ class InventorySorterTest {
     private final int slotThirtyTwo = 31;
 
     @BeforeAll
-    public static void setup(){
+    public static void setup() {
         SharedConstants.createGameVersion();
         Bootstrap.initialize();
     }
+
     @Test
     void given100DirtBlocks_WhenSortingInventory_ThenCombineIntoTwoStacksInFirstAndSecondSlot() {
         // Arrange
@@ -54,8 +56,9 @@ class InventorySorterTest {
         assertEquals(expectedDirtInSlotOne, actualAmountInSlotOne);
         assertEquals(expectedDirtInSlotTwo, actualAmountInSlotTwo);
     }
+
     @Test
-    void given69Eggs_WhenSortingInventory_ThenCombineIntoFiveStacks(){
+    void given69Eggs_WhenSortingInventory_ThenCombineIntoFiveStacks() {
         // Arrange
         Inventory inventory = new SimpleInventory(32);
         int eggAmountSixteen = 16;
@@ -107,7 +110,7 @@ class InventorySorterTest {
     }
 
     @Test
-    void given3Pickaxes_WhenSortingInventory_ThenDoNotCombine(){
+    void given3Pickaxes_WhenSortingInventory_ThenDoNotCombine() {
         // Arrange
         Inventory inventory = new SimpleInventory(32);
         int expectedStackSize = 1;
@@ -128,8 +131,9 @@ class InventorySorterTest {
         assertEquals(expectedItemSlotOne, actualItemSlotOne);
         assertEquals(expectedStackSize, actualItemSlotOne.getCount());
     }
+
     @Test
-    void givenNamedShulkerAndNormalShulkers_WhenSortingInventory_DontCombine(){
+    void givenNamedShulkerAndNormalShulkers_WhenSortingInventory_DontCombine() {
         // Arrange
         Inventory inventory = new SimpleInventory(32);
         int expectedStackSize = 1;
@@ -151,12 +155,31 @@ class InventorySorterTest {
                 stack -> stack.getName().getString()
                         .equals(shulkerCustomName)));
     }
+
     @Test
-    void givenFilledShulkerAndNormalShulker_WhenSortingInventory_DontCombineFilledShulker(){
+    void givenFilledShulkerAndNormalShulker_WhenSortingInventory_DontCombineFilledShulker() {
         fail("Test not implemented");
     }
+
     @Test
-    void givenRenamedNameTagAndDefaultNameTags_WhenSortingInventory_DontCombineRenamedTagWithDefaultNameTags(){
-        fail("Test not implemented");
+    void givenRenamedNameTagAndDefaultNameTags_WhenSortingInventory_DontCombineRenamedTagWithDefaultNameTags() {
+        // Arrange
+        Inventory inventory = new SimpleInventory(32);
+        ItemStack nameTag = new ItemStack(Items.NAME_TAG, 1);
+        String tagName = "Bob";
+        ItemStack renamedNameTag = new ItemStack(Items.NAME_TAG, 1);
+        renamedNameTag.setCustomName(Text.of(tagName));
+        inventory.setStack(slotThree, nameTag);
+        inventory.setStack(slotEight, nameTag);
+        inventory.setStack(slotTen, nameTag);
+        inventory.setStack(slotFive, renamedNameTag);
+        int expectedAccumulatedStacks = 3;
+        // Act
+        InventorySorter.sortInventory(inventory);
+
+        // Assert
+        ItemStack stackInSlotOne = inventory.getStack(slotOne);
+        assertTrue(inventory.containsAny(itemStack -> itemStack.getName().getString().equals(tagName)));
+        assertEquals(expectedAccumulatedStacks, stackInSlotOne.getCount());
     }
 }
