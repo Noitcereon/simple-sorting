@@ -8,8 +8,10 @@ import java.util.*;
 import java.util.function.Predicate;
 
 public class InventorySorter {
-
-    public static boolean sortInventory(Inventory inventory) {
+    private InventorySorter(){
+        // Prevent instantiation of utility method
+    }
+    public static void sortInventory(Inventory inventory) {
         Map<Integer, ItemStack> inventoryMap = convertInventoryToMap(inventory);
         List<Map.Entry<Integer, ItemStack>> entriesWithValueSorted = inventoryMap.entrySet().stream().sorted((entry, entry2) -> {
             int itemId = Item.getRawId(entry.getValue().getItem());
@@ -25,7 +27,6 @@ public class InventorySorter {
                 inventory.setStack(slot, entry.getValue());
                 slot++;
         }
-        return true;
     }
 
     /**
@@ -85,6 +86,10 @@ public class InventorySorter {
         ItemStack nonFullStack = new ItemStack(item, 0);
         Collection<ItemStack> combinedStacks = new ArrayList<>();
         for (Map.Entry<Integer, ItemStack> entry : stacksOfTheSameItem) {
+            if(isRenamedItem(entry)){
+                combinedStacks.add(entry.getValue());
+                continue;
+            }
             int entryItemAmount = entry.getValue().getCount();
             int newAmount = nonFullStack.getCount() + entryItemAmount;
             if (newAmount >= item.getMaxCount()) {
@@ -96,5 +101,16 @@ public class InventorySorter {
         }
         if (nonFullStack.getCount() > 0) combinedStacks.add(nonFullStack);
         return combinedStacks;
+    }
+
+    /**
+     *
+     * @param entry A map entry representing a slot in an inventory {@code Map.Entry<Slot, ItemStack>}
+     * @return True if it is a renamed item. Otherwise, false.
+     */
+    private static boolean isRenamedItem(Map.Entry<Integer, ItemStack> entry) {
+        String defaultName = entry.getValue().getItem().getDefaultStack().getName().getString();
+        String entryName = entry.getValue().getName().getString();
+        return !entryName.equals(defaultName);
     }
 }
