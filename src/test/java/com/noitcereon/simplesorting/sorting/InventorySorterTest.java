@@ -185,8 +185,8 @@ class InventorySorterTest {
         InventorySorter.sortInventory(inventory);
 
         // Assert
-        ItemStack stackInSlotOne = inventory.getStack(slotOne);
+        ItemStack stackInSlotTwo = inventory.getStack(slotTwo);
         assertTrue(inventory.containsAny(itemStack -> itemStack.getName().getString().equals(tagName)));
-        assertEquals(expectedAccumulatedStacks, stackInSlotOne.getCount());
+        assertEquals(expectedAccumulatedStacks, stackInSlotTwo.getCount());
     }
 }
