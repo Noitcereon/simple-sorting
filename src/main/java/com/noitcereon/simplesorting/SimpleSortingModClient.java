@@ -33,10 +33,18 @@ public class SimpleSortingModClient implements ClientModInitializer {
 
     @NotNull
     private ButtonWidget createSortButton(int scaledWidth, int scaledHeight) {
-        return new ButtonWidget((scaledWidth / 100) * 70, (scaledHeight / 100) * 5, 40, 16, Text.literal("Sort"), (btn) -> {
+        int placementCoordinateX = (scaledWidth / 100) * 70;
+        int placementCoordinateY = (scaledHeight / 100) * 5;
+        int buttonWidth = 40;
+        int buttonHeight = 16;
+
+        ButtonWidget.Builder buttonBuilder = ButtonWidget.builder(Text.literal("Sort"), button -> {
             SimpleSortingMod.LOGGER.debug("Sort Button pressed");
             PacketByteBuf packet = PacketByteBufs.empty();
             ClientPlayNetworking.send(SimpleSortingMod.INVENTORY_SORT_REQUEST_ID, packet); // this triggers the global receiver registered with the same identifier.
-        });
+        })
+        .dimensions(placementCoordinateX, placementCoordinateY, buttonWidth, buttonHeight);
+
+        return buttonBuilder.build();
     }
 }
