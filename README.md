@@ -15,7 +15,7 @@ If you don't want to manually install it, you can use CurseForge: https://www.cu
 This mod requires Fabric Loader and Fabric API. You can get them here: https://fabricmc.net/ if you haven't already.
 
 - Go to the [latest release](https://github.com/Noitcereon/simple-sorting/releases).
-- Download the fabric-simple-sorting-mod-0.3.0.jar
+- Download the `noits-simple-sorting-<VERSION>.jar` (or `fabric-simple-sorting-mod-<VERSION>.jar` for version 0.3.0 and earlier.)
 - Put it into your mods folder 
     - The mods folder should be located in your .minecraft folder (search for %appdata% and go into the .minecraft folder from there)
     - If the mods folder doesn't exist create it. It MUST be named mods exactly.
