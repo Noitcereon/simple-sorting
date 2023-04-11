@@ -28,7 +28,7 @@ public class SimpleSortingMod implements ModInitializer {
 
         ServerPlayNetworking.registerGlobalReceiver(INVENTORY_SORT_REQUEST_ID, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                LOGGER.debug("Server received package: " + INVENTORY_SORT_REQUEST_ID.getNamespace() + " " + INVENTORY_SORT_REQUEST_ID.getPath());
+                LOGGER.debug("Server received package: {} {}", INVENTORY_SORT_REQUEST_ID.getNamespace(), INVENTORY_SORT_REQUEST_ID.getPath());
 
                 sortCurrentlyOpenInventory(player);
             });
@@ -60,7 +60,7 @@ public class SimpleSortingMod implements ModInitializer {
                 LOGGER.warn("player.currentScreenHandler returned {}, which does not work with Simple Sorting.", currentScreenHandlerReturnType);
             }
         } catch (Exception e) {
-            LOGGER.error("Sorting failed, because of this exception: " + e.getMessage());
+            LOGGER.error("Sorting failed, because of this exception: {}", e.getMessage());
         }
     }
 
