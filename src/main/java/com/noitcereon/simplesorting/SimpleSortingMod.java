@@ -42,16 +42,16 @@ public class SimpleSortingMod implements ModInitializer {
                 LOGGER.error("Sorting failed, because screenHandler is null.");
                 return;
             }
-            if (screenHandler instanceof GenericContainerScreenHandler containerScreenHandler) {
+            if (screenHandler instanceof GenericContainerScreenHandler genericContainerScreenHandler) {
                 if (canPlayerUse(player, screenHandler)) return;
 
-                Inventory containerInventory = containerScreenHandler.getInventory();
+                Inventory containerInventory = genericContainerScreenHandler.getInventory();
                 InventorySorter.sortInventory(containerInventory);
                 containerInventory.markDirty();
-            } else if (screenHandler instanceof IExtendedShulkerBoxScreenHandler containerScreenHandler) {
+            } else if (screenHandler instanceof IExtendedShulkerBoxScreenHandler shulkerBoxScreenHandler) {
                 if (canPlayerUse(player, screenHandler)) return;
 
-                Inventory containerInventory = containerScreenHandler.getInventory();
+                Inventory containerInventory = shulkerBoxScreenHandler.getInventory();
                 InventorySorter.sortInventory(containerInventory);
                 containerInventory.markDirty();
 
