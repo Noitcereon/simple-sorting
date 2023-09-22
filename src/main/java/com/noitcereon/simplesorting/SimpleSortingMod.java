@@ -28,7 +28,7 @@ public class SimpleSortingMod implements ModInitializer {
 
         ServerPlayNetworking.registerGlobalReceiver(INVENTORY_SORT_REQUEST_ID, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                LOGGER.debug("Server received package: " + INVENTORY_SORT_REQUEST_ID.getNamespace() + " " + INVENTORY_SORT_REQUEST_ID.getPath());
+                LOGGER.debug("Server received package: {} {}", INVENTORY_SORT_REQUEST_ID.getNamespace(), INVENTORY_SORT_REQUEST_ID.getPath());
 
                 sortCurrentlyOpenInventory(player);
             });
@@ -42,16 +42,16 @@ public class SimpleSortingMod implements ModInitializer {
                 LOGGER.error("Sorting failed, because screenHandler is null.");
                 return;
             }
-            if (screenHandler instanceof GenericContainerScreenHandler containerScreenHandler) {
+            if (screenHandler instanceof GenericContainerScreenHandler genericContainerScreenHandler) {
                 if (canPlayerUse(player, screenHandler)) return;
 
-                Inventory containerInventory = containerScreenHandler.getInventory();
+                Inventory containerInventory = genericContainerScreenHandler.getInventory();
                 InventorySorter.sortInventory(containerInventory);
                 containerInventory.markDirty();
-            } else if (screenHandler instanceof IExtendedShulkerBoxScreenHandler containerScreenHandler) {
+            } else if (screenHandler instanceof IExtendedShulkerBoxScreenHandler shulkerBoxScreenHandler) {
                 if (canPlayerUse(player, screenHandler)) return;
 
-                Inventory containerInventory = containerScreenHandler.getInventory();
+                Inventory containerInventory = shulkerBoxScreenHandler.getInventory();
                 InventorySorter.sortInventory(containerInventory);
                 containerInventory.markDirty();
 
@@ -60,7 +60,7 @@ public class SimpleSortingMod implements ModInitializer {
                 LOGGER.warn("player.currentScreenHandler returned {}, which does not work with Simple Sorting.", currentScreenHandlerReturnType);
             }
         } catch (Exception e) {
-            LOGGER.error("Sorting failed, because of this exception: " + e.getMessage());
+            LOGGER.error("Sorting failed, because of this exception: {}", e.getMessage());
         }
     }
 
