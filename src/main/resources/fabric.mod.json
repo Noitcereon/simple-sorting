@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "simplesorting",
+  "id": "noitssimplesorting",
   "version": "${version}",
 
-  "name": "Simple Sorting Mod",
-  "description": "Work-in-Progress mod. It will be all about sorting inventories.",
+  "name": "Noit's Simple Sorting",
+  "description": "A very simple sorting mod for generic containers and shulkers.",
   "authors": [
     "Noitcereon"
   ],
@@ -36,7 +36,7 @@
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",
-    "minecraft": "~1.19",
+    "minecraft": "~1.20",
     "java": ">=17"
   },
   "suggests": {
