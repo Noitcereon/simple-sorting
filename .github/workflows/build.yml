@@ -15,6 +15,7 @@ jobs:
           17,    # Current Java LTS & minimum supported by Minecraft
         ]
         # and run on both Linux and Windows
+        # See https://github.com/actions/runner-images/tree/main for list of available OS versions.
         os: [ubuntu-20.04, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
