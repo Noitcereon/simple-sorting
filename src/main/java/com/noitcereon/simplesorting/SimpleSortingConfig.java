@@ -66,9 +66,9 @@ public class SimpleSortingConfig {
         if(!loadSuccess) SimpleSortingModClient.LOGGER.warn("Failed to load configuration file, updating the config may have no effect.");
 
         YetAnotherConfigLib configLib = YetAnotherConfigLib.createBuilder()
-                .title(Text.literal("Used for narration. Could be used to render a title in the future."))
+                .title(Text.literal("Noit's Simple Sorting config.")) // Used for narration.
                 .category(ConfigCategory.createBuilder()
-                        .name(Text.literal("Simple Sorting"))
+                        .name(Text.literal("Noit's Simple Sorting Configuration"))
                         .tooltip(Text.literal("Contains all the configuration available for Noit's Simple Sorting."))
                         .option(() -> {
                             Option.Builder<Integer> optionBuilder = Option.<Integer>createBuilder() // Defines type of config value, in this case Integer.
