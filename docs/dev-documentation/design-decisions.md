@@ -18,3 +18,19 @@ Below is an example from `SimpleSortingMod.java`:
 public static final Identifier INVENTORY_SORT_REQUEST_ID = new Identifier(ModInfo.MOD_ID, "inventory-sort-request");
 ```
 
+## Versioning
+
+The mod uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and appends Minecraft version at the end in the format:
+
+`Major.Minor.Patch+MinecraftVersion`
+
+Example: `0.7.0+1.20.1` is version 0.7.0 of the mod, which targets Minecraft version 1.20.1
+
+The public API is defined as:
+- Configuration options displayed to the user.
+- Sort button defaults
+- The sorting algorithm
+
+Examples of breaking change:
+- Removing a configuration option.
+- Changing the way the sort button sorts inventory.
