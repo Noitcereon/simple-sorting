@@ -55,6 +55,12 @@ public class SimpleSortingConfig {
         return sortBtnXCoordinatePercentage;
     }
 
+    /**
+     * Creates the in-game config screen displayed to the user.
+     * @param parentScreen The screen to display, when closing the config screen (null goes back to the "open world").
+     * @return The in-game config screen displayed to the user.
+     * @apiNote To display it to the user, use MinecraftClient's setScreen() method.
+     */
     public Screen createConfigScreen(Screen parentScreen) {
         boolean loadSuccess = CONFIG_HANDLER.load(); // To get the latest values from config file.
         if(!loadSuccess) SimpleSortingModClient.LOGGER.warn("Failed to load configuration file, updating the config may have no effect.");
