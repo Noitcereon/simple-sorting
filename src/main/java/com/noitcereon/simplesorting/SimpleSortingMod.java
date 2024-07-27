@@ -43,13 +43,13 @@ public class SimpleSortingMod implements ModInitializer {
                 return;
             }
             if (screenHandler instanceof GenericContainerScreenHandler genericContainerScreenHandler) {
-                if (canPlayerUse(player, screenHandler)) return;
+                if (playerCannotUse(player, screenHandler)) return;
 
                 Inventory containerInventory = genericContainerScreenHandler.getInventory();
                 InventorySorter.sortInventory(containerInventory);
                 containerInventory.markDirty();
             } else if (screenHandler instanceof IExtendedShulkerBoxScreenHandler shulkerBoxScreenHandler) {
-                if (canPlayerUse(player, screenHandler)) return;
+                if (playerCannotUse(player, screenHandler)) return;
 
                 Inventory containerInventory = shulkerBoxScreenHandler.getInventory();
                 InventorySorter.sortInventory(containerInventory);
@@ -64,7 +64,7 @@ public class SimpleSortingMod implements ModInitializer {
         }
     }
 
-    private boolean canPlayerUse(ServerPlayerEntity player, ScreenHandler screenHandler) {
+    private boolean playerCannotUse(ServerPlayerEntity player, ScreenHandler screenHandler) {
         if (!screenHandler.canUse(player)) {
             LOGGER.info("Failed to sort, because player cannot use the container anymore.");
             return true;
