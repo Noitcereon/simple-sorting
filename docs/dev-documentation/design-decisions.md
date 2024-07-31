@@ -15,7 +15,7 @@ overview of which ids exist and helps with understanding where they're supposed 
 Below is an example from `SimpleSortingMod.java`:
 
 ```java
-public static final Identifier INVENTORY_SORT_REQUEST_ID = new Identifier(ModInfo.MOD_ID, "inventory-sort-request");
+public static final Identifier INVENTORY_SORT_REQUEST_ID = Identifier.of(ModInfo.MOD_ID, "inventory-sort-request");
 ```
 
 ## Versioning
