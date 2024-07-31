@@ -1,8 +1,10 @@
 package com.noitcereon.simplesorting;
 
 import com.noitcereon.simplesorting.interfaces.IExtendedShulkerBoxScreenHandler;
+import com.noitcereon.simplesorting.networking.SortPayload;
 import com.noitcereon.simplesorting.sorting.InventorySorter;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.screen.GenericContainerScreenHandler;
@@ -26,11 +28,18 @@ public class SimpleSortingMod implements ModInitializer {
         // Proceed with mild caution.
         LOGGER.info("Initialising {}", ModInfo.MOD_ID);
 
-        ServerPlayNetworking.registerGlobalReceiver(INVENTORY_SORT_REQUEST_ID, (server, player, handler, buf, responseSender) -> {
-            server.execute(() -> {
+        // Register payload must be done before registering payload receiver.
+        PayloadTypeRegistry.playC2S().register(SortPayload.PAYLOAD_ID, SortPayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(SortPayload.PAYLOAD_ID, SortPayload.CODEC);
+
+        ServerPlayNetworking.registerGlobalReceiver(SortPayload.PAYLOAD_ID, (payload, context) -> {
+            // Fabric API for MC v1.20.5 changed registerGlobalReceiver method from using the following variables:
+            // server, player, handler, buf, responseSender
+            // To using: CustomPayload.Id record and CustomPayload interface (which seems to contain same information, but wrapped...)
+            context.server().execute(() -> {
                 LOGGER.debug("Server received package: {} {}", INVENTORY_SORT_REQUEST_ID.getNamespace(), INVENTORY_SORT_REQUEST_ID.getPath());
 
-                sortCurrentlyOpenInventory(player);
+                sortCurrentlyOpenInventory(context.player());
             });
         });
     }

@@ -1,19 +1,18 @@
 package com.noitcereon.simplesorting;
 
+import com.noitcereon.simplesorting.networking.SortPayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.GenericContainerScreen;
 import net.minecraft.client.gui.screen.ingame.ShulkerBoxScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -84,8 +83,7 @@ public class SimpleSortingModClient implements ClientModInitializer {
 
         ButtonWidget.Builder buttonBuilder = ButtonWidget.builder(Text.literal("Sort"), button -> {
             SimpleSortingMod.LOGGER.debug("Sort Button pressed");
-            PacketByteBuf packet = PacketByteBufs.empty();
-            ClientPlayNetworking.send(SimpleSortingMod.INVENTORY_SORT_REQUEST_ID, packet); // this triggers the global receiver registered with the same identifier.
+            ClientPlayNetworking.send(new SortPayload()); // this triggers the global receiver registered for this type of payload.
         })
         .dimensions(placementCoordinateX, placementCoordinateY, buttonWidth, buttonHeight);
 
