@@ -20,7 +20,7 @@ public class InventorySorter {
             return Integer.compare(itemId, itemId2);
         }).toList();
 
-        Map<Integer, ItemStack> sortedInventoryMap = sortInventory(entriesWithValueSorted);
+        Map<Integer, ItemStack> sortedInventoryMap = combineAndSortItemStacks(entriesWithValueSorted);
         inventory.clear();
         int slot = 0;
         for (Map.Entry<Integer, ItemStack> entry : sortedInventoryMap.entrySet()) {
@@ -42,7 +42,7 @@ public class InventorySorter {
         }
         return inventoryMap;
     }
-    private static Map<Integer, ItemStack> sortInventory(List<Map.Entry<Integer, ItemStack>> entriesWithValueSorted) {
+    private static Map<Integer, ItemStack> combineAndSortItemStacks(List<Map.Entry<Integer, ItemStack>> entriesWithValueSorted) {
         Map<Integer, ItemStack> sortedInventoryMap = new HashMap<>();
         int nextSpot = 1;
         ArrayList<Integer> entryKeysMarkedForSkipping = new ArrayList<>();

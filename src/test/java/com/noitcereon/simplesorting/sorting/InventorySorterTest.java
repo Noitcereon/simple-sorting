@@ -144,10 +144,10 @@ class InventorySorterTest {
         ItemStack renamedShulker = new ItemStack(Items.SHULKER_BOX, expectedStackSize);
         String shulkerCustomName = "Renamed Shulker";
         renamedShulker.apply(DataComponentTypes.CUSTOM_NAME, Text.of(shulkerCustomName), text -> text);
-        ItemStack normalShulker = new ItemStack(Items.SHULKER_BOX, expectedStackSize);
+        ItemStack defaultShulker = new ItemStack(Items.SHULKER_BOX, expectedStackSize);
         inventory.setStack(slotFour, renamedShulker);
-        inventory.setStack(slotTwo, normalShulker);
-        inventory.setStack(slotThirtyTwo, normalShulker);
+        inventory.setStack(slotTwo, defaultShulker);
+        inventory.setStack(slotThirtyTwo, defaultShulker);
 
         // Act
         InventorySorter.sortInventory(inventory);
@@ -173,13 +173,13 @@ class InventorySorterTest {
     void givenRenamedNameTagAndDefaultNameTags_WhenSortingInventory_DontCombineRenamedTagWithDefaultNameTags() {
         // Arrange
         Inventory inventory = new SimpleInventory(32);
-        ItemStack nameTag = new ItemStack(Items.NAME_TAG, 1);
+        ItemStack defaultNameTag = new ItemStack(Items.NAME_TAG, 1);
         String tagName = "Bob";
         ItemStack renamedNameTag = new ItemStack(Items.NAME_TAG, 1);
         renamedNameTag.apply(DataComponentTypes.CUSTOM_NAME, Text.of(tagName), text -> text);
-        inventory.setStack(slotThree, nameTag);
-        inventory.setStack(slotEight, nameTag);
-        inventory.setStack(slotTen, nameTag);
+        inventory.setStack(slotThree, defaultNameTag);
+        inventory.setStack(slotEight, defaultNameTag);
+        inventory.setStack(slotTen, defaultNameTag);
         inventory.setStack(slotFive, renamedNameTag);
         int expectedAccumulatedStacks = 3;
         // Act
