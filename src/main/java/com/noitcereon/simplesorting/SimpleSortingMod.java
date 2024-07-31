@@ -19,7 +19,7 @@ public class SimpleSortingMod implements ModInitializer {
     // It is considered best practice to use your mod id as the logger's name.
     // That way, it's clear which mod wrote info, warnings, and errors.
     public static final Logger LOGGER = LoggerFactory.getLogger(ModInfo.MOD_ID);
-    public static final Identifier INVENTORY_SORT_REQUEST_ID = new Identifier(ModInfo.MOD_ID, "inventory-sort-request");
+    public static final Identifier INVENTORY_SORT_REQUEST_ID = Identifier.of(ModInfo.MOD_ID, "inventory-sort-request");
 
     @Override
     public void onInitialize() {

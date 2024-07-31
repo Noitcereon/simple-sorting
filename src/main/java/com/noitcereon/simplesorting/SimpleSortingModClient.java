@@ -25,7 +25,7 @@ public class SimpleSortingModClient implements ClientModInitializer {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ModInfo.MOD_ID + "-client");
 
-    public static final Identifier CONFIG_ID = new Identifier(ModInfo.MOD_ID, "mod-config");
+    public static final Identifier CONFIG_ID = Identifier.of(ModInfo.MOD_ID, "mod-config");
 
     // I assume it has to be static, because only ONE keybinding of this type must exist.
     // See https://fabricmc.net/wiki/tutorial:keybinds
