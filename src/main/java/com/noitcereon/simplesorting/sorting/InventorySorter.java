@@ -50,17 +50,15 @@ public class InventorySorter {
             if (entryKeysMarkedForSkipping.contains(entry.getKey())) continue;
             ItemStack stack = entry.getValue();
             if (itemStacksOfTheSameItemExists(entriesWithValueSorted, stack.getItem()) && stack.getItem().getMaxCount() != 1) {
-                // Find all items with the same id
                 List<Map.Entry<Integer, ItemStack>> stacksOfTheSameItem = entriesWithValueSorted
                         .stream()
                         .filter(entryValueHasTheSameItemId(stack))
                         .toList();
 
-                // Combine them and...
                 Collection<ItemStack> combinedStacks = combineStacksOfTheSameItem(stacksOfTheSameItem);
-                // ... Mark entries used during combination for skipping
+                // Mark entries used, so we don't add additional items to the inventory.
                 stacksOfTheSameItem.forEach(x -> entryKeysMarkedForSkipping.add(x.getKey()));
-                // Add the combined stacks to chest inventory
+
                 for (ItemStack combinedStack : combinedStacks) {
                     sortedInventoryMap.put(nextSpot, combinedStack);
                     nextSpot++;
