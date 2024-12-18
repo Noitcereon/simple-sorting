@@ -2,7 +2,7 @@
 
 To update to a new Minecraft version you must do the following:
 
-1. Update dependencies, e.g.
+1. Update dependencies (files: `gradle.properties`, `fabric.mod.json`), e.g.
    * YetAnotherConfigLib (https://github.com/isXander/YetAnotherConfigLib)
    * Fabric (check these on https://fabricmc.net/develop)
 2. Check Minecraft patch notes to see if there is anything that affects this mod. E.g. Java version upgrade.
