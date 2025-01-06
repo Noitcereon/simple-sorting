@@ -3,6 +3,8 @@
 
 Simple Sorting is a Minecraft mod - made with [Fabric](https://github.com/FabricMC/fabric) - which aims to add one function to Minecraft: inventory sorting.
 
+Note: If you want to use this mod on a dedicated server, the server needs to have the the mod installed as well.
+
 ## Installation
 
 There are two ways to install Simple Sorting: manual or semi-automatic with CurseForge.
