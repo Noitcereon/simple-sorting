@@ -14,10 +14,10 @@ repositories {
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
 
-    maven {
+    maven {MavenArtifactRepository repo ->
         // For YetAnotherConfigLib dependency.
-        name = 'Xander Maven'
-        url = 'https://maven.isxander.dev/releases'
+        repo.name = 'Xander Maven'
+        repo.url = 'https://maven.isxander.dev/releases'
     }
 }
 
