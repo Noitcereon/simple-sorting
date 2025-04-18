@@ -47,26 +47,26 @@ public class SimpleSortingMod implements ModInitializer {
     private void sortCurrentlyOpenInventory(ServerPlayerEntity player) {
         try {
             ScreenHandler screenHandler = player.currentScreenHandler;
-            if(screenHandler == null){
-                LOGGER.error("Sorting failed, because screenHandler is null.");
-                return;
-            }
-            if (screenHandler instanceof GenericContainerScreenHandler genericContainerScreenHandler) {
-                if (playerCannotUse(player, screenHandler)) return;
+            switch (screenHandler) {
+                case null -> LOGGER.error("Sorting failed, because screenHandler is null.");
+                case GenericContainerScreenHandler genericContainerScreenHandler -> {
+                    if (playerCannotUse(player, screenHandler)) return;
 
-                Inventory containerInventory = genericContainerScreenHandler.getInventory();
-                InventorySorter.sortInventory(containerInventory);
-                containerInventory.markDirty();
-            } else if (screenHandler instanceof IExtendedShulkerBoxScreenHandler shulkerBoxScreenHandler) {
-                if (playerCannotUse(player, screenHandler)) return;
+                    Inventory containerInventory = genericContainerScreenHandler.getInventory();
+                    InventorySorter.sortInventory(containerInventory);
+                    containerInventory.markDirty();
+                }
+                case IExtendedShulkerBoxScreenHandler shulkerBoxScreenHandler -> {
+                    if (playerCannotUse(player, screenHandler)) return;
 
-                Inventory containerInventory = shulkerBoxScreenHandler.getInventory();
-                InventorySorter.sortInventory(containerInventory);
-                containerInventory.markDirty();
-
-            } else {
-                String currentScreenHandlerReturnType = screenHandler.getClass().getName();
-                LOGGER.warn("player.currentScreenHandler returned {}, which does not work with Simple Sorting.", currentScreenHandlerReturnType);
+                    Inventory containerInventory = shulkerBoxScreenHandler.getInventory();
+                    InventorySorter.sortInventory(containerInventory);
+                    containerInventory.markDirty();
+                }
+                default -> {
+                    String currentScreenHandlerReturnType = screenHandler.getClass().getName();
+                    LOGGER.warn("player.currentScreenHandler returned {}, which does not work with Simple Sorting.", currentScreenHandlerReturnType);
+                }
             }
         } catch (Exception e) {
             LOGGER.error("Sorting failed, because of this exception: {}", e.getMessage());
