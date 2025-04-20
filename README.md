@@ -49,5 +49,7 @@ Sort button location can be changed in the configuration, which is opened by pre
 ## Contributions
 Pull Requests are welcome, however please try to make [Atomic Commits](https://www.aleksandrhovhannisyan.com/blog/atomic-git-commits/) when doing so.
 
+Be sure to take a look at the [dev documentation](./docs/dev-documentation), especially the [design-decisions](./docs/dev-documentation/design-decisions.md)
+
 ## License
 [MIT](https://github.com/Noitcereon/simple-sorting/blob/1.19/LICENSE) © Thomas "Noit" A.
