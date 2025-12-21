@@ -2,9 +2,12 @@ package com.noitcereon.simplesorting.sorting;
 
 import net.minecraft.Bootstrap;
 import net.minecraft.SharedConstants;
+import net.minecraft.component.Component;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.OminousBottleAmplifierComponent;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
@@ -190,4 +193,28 @@ class InventorySorterTest {
         assertTrue(inventory.containsAny(itemStack -> itemStack.getName().getString().equals(tagName)));
         assertEquals(expectedAccumulatedStacks, stackInSlotTwo.getCount());
     }
+
+//    @Test
+//    void givenOminousBottles_WhenSortingInventory_DontCombineDifferentAmplifiers() {
+//        // Arrange
+//        Inventory inventory = new SimpleInventory(32);
+//        ItemStack defaultOminousBottle = new ItemStack(Items.OMINOUS_BOTTLE, 1);
+//        Item ominousBottleWithAmplifier = Items.OMINOUS_BOTTLE;
+//        ominousBottleWithAmplifier.getComponents().
+//
+//        Component<OminousBottleAmplifierComponent> component = ominousBottleWithAmplifier.getComponents().getTyped(DataComponentTypes.OMINOUS_BOTTLE_AMPLIFIER);
+//        Component<OminousBottleAmplifierComponent> amplifierComponent = Component.of(DataComponentTypes.OMINOUS_BOTTLE_AMPLIFIER, 1);
+//        int amplifier = component.value().value();
+//        inventory.setStack(slotThree, defaultOminousBottle);
+//        inventory.setStack(slotEight, defaultOminousBottle);
+//        inventory.setStack(slotTen, defaultOminousBottle);
+//        inventory.setStack(slotFive, ominousBottleWithAmplifier);
+//        int expectedAccumulatedStacks = 3;
+//        // Act
+//        InventorySorter.sortInventory(inventory);
+//
+//        // Assert
+//        ItemStack stackInSlotTwo = inventory.getStack(slotTwo);
+//
+//    }
 }
