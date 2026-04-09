@@ -39,7 +39,7 @@ public class InventorySorter {
      * @return <p>Map<Integer, ItemStack></p> <p>Integer = slot </p><p> ItemStack = the ItemStack.</p>
      */
     private static Map<Integer, ItemStack> convertInventoryToMap(Container inventory) {
-        Map<Integer, ItemStack> inventoryMap = new HashMap<>(inventory.getContainerSize());
+        Map<Integer, ItemStack> inventoryMap = HashMap.newHashMap(inventory.getContainerSize());
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
             inventoryMap.put(i, stack);

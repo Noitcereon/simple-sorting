@@ -29,7 +29,7 @@ class InventorySorterTest {
     private static final Logger LOG = LoggerFactory.getLogger(InventorySorterTest.class);
 
     @BeforeAll
-    public static void setup() {
+    static void setup() {
         SharedConstants.tryDetectVersion(); // correct mapping?
         Bootstrap.bootStrap();
     }

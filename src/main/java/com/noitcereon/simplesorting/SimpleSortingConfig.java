@@ -1,5 +1,6 @@
 package com.noitcereon.simplesorting;
 
+import com.google.gson.GsonBuilder;
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
@@ -34,7 +35,7 @@ public class SimpleSortingConfig {
             .id(SimpleSortingModClient.CONFIG_ID)
             .serializer(configSerializer -> GsonConfigSerializerBuilder.create(configSerializer)
                     .setPath(FabricLoader.getInstance().getConfigDir().resolve("simple-sorting-config.json5"))
-                    .appendGsonBuilder(gsonBuilder -> gsonBuilder.setPrettyPrinting())
+                    .appendGsonBuilder(GsonBuilder::setPrettyPrinting)
                     .setJson5(true)
                     .build())
             .build();
