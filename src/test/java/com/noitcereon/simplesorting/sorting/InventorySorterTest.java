@@ -1,13 +1,14 @@
 package com.noitcereon.simplesorting.sorting;
 
-import net.minecraft.Bootstrap;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.Bootstrap;
 import net.minecraft.SharedConstants;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.text.Text;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -28,19 +29,19 @@ class InventorySorterTest {
     private static final Logger LOG = LoggerFactory.getLogger(InventorySorterTest.class);
 
     @BeforeAll
-    public static void setup() {
-        SharedConstants.createGameVersion();
-        Bootstrap.initialize();
+    static void setup() {
+        SharedConstants.tryDetectVersion(); // correct mapping?
+        Bootstrap.bootStrap();
     }
 
     @Test
     void given100DirtBlocks_WhenSortingInventory_ThenCombineIntoTwoStacksInFirstAndSecondSlot() {
         // Arrange
-        Inventory inventory = new SimpleInventory(32);
-        inventory.setStack(slotOne, new ItemStack(Items.DIRT, 5));
-        inventory.setStack(slotFour, new ItemStack(Items.DIRT, 32));
-        inventory.setStack(slotSix, new ItemStack(Items.DIRT, 32));
-        inventory.setStack(slotThirtyTwo, new ItemStack(Items.DIRT, 32));
+        Container inventory = new SimpleContainer(32);
+        inventory.setItem(slotOne, new ItemStack(Items.DIRT, 5));
+        inventory.setItem(slotFour, new ItemStack(Items.DIRT, 32));
+        inventory.setItem(slotSix, new ItemStack(Items.DIRT, 32));
+        inventory.setItem(slotThirtyTwo, new ItemStack(Items.DIRT, 32));
         int expectedDirtInSlotOne = 64;
         int expectedDirtInSlotTwo = 37;
         String expectedItemName = "Dirt";
@@ -49,12 +50,12 @@ class InventorySorterTest {
         InventorySorter.sortInventory(inventory);
 
         // Assert
-        ItemStack stackInSlotOne = inventory.getStack(slotOne);
-        ItemStack stackInSlotTwo = inventory.getStack(slotTwo);
+        ItemStack stackInSlotOne = inventory.getItem(slotOne);
+        ItemStack stackInSlotTwo = inventory.getItem(slotTwo);
         int actualAmountInSlotOne = stackInSlotOne.getCount();
         int actualAmountInSlotTwo = stackInSlotTwo.getCount();
-        String actualItemNameSlotOne = stackInSlotOne.getName().getString();
-        String actualItemNameSlotTwo = stackInSlotTwo.getName().getString();
+        String actualItemNameSlotOne = stackInSlotOne.getItemName().getString();
+        String actualItemNameSlotTwo = stackInSlotTwo.getItemName().getString();
         assertEquals(expectedItemName, actualItemNameSlotOne);
         assertEquals(expectedItemName, actualItemNameSlotTwo);
         assertEquals(expectedDirtInSlotOne, actualAmountInSlotOne);
@@ -64,16 +65,16 @@ class InventorySorterTest {
     @Test
     void given69Eggs_WhenSortingInventory_ThenCombineIntoFiveStacks() {
         // Arrange
-        Inventory inventory = new SimpleInventory(32);
+        Container inventory = new SimpleContainer(32);
         int eggAmountSixteen = 16;
         int eggAmountThree = 3;
         int eggAmountTwo = 2;
-        inventory.setStack(slotOne, new ItemStack(Items.EGG, eggAmountSixteen));
-        inventory.setStack(slotFour, new ItemStack(Items.EGG, eggAmountSixteen));
-        inventory.setStack(slotTen, new ItemStack(Items.EGG, eggAmountSixteen));
-        inventory.setStack(slotSix, new ItemStack(Items.EGG, eggAmountSixteen));
-        inventory.setStack(slotEight, new ItemStack(Items.EGG, eggAmountThree));
-        inventory.setStack(slotThirtyTwo, new ItemStack(Items.EGG, eggAmountTwo));
+        inventory.setItem(slotOne, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setItem(slotFour, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setItem(slotTen, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setItem(slotSix, new ItemStack(Items.EGG, eggAmountSixteen));
+        inventory.setItem(slotEight, new ItemStack(Items.EGG, eggAmountThree));
+        inventory.setItem(slotThirtyTwo, new ItemStack(Items.EGG, eggAmountTwo));
 
         String expectedItemName = "Egg";
         int expectedEggsInFirstFourSlots = 16;
@@ -83,22 +84,22 @@ class InventorySorterTest {
         InventorySorter.sortInventory(inventory);
 
         // Assert
-        ItemStack stackInSlotOne = inventory.getStack(slotOne);
-        ItemStack stackInSlotTwo = inventory.getStack(slotTwo);
-        ItemStack stackInSlotThree = inventory.getStack(slotThree);
-        ItemStack stackInSlotFour = inventory.getStack(slotFour);
-        ItemStack stackInSlotFive = inventory.getStack(slotFive);
+        ItemStack stackInSlotOne = inventory.getItem(slotOne);
+        ItemStack stackInSlotTwo = inventory.getItem(slotTwo);
+        ItemStack stackInSlotThree = inventory.getItem(slotThree);
+        ItemStack stackInSlotFour = inventory.getItem(slotFour);
+        ItemStack stackInSlotFive = inventory.getItem(slotFive);
 
         int actualAmountInSlotOne = stackInSlotOne.getCount();
         int actualAmountInSlotTwo = stackInSlotTwo.getCount();
         int actualAmountInSlotThree = stackInSlotThree.getCount();
         int actualAmountInSlotFour = stackInSlotFour.getCount();
         int actualAmountInSlotFive = stackInSlotFive.getCount();
-        String actualItemNameSlotOne = stackInSlotOne.getName().getString();
-        String actualItemNameSlotTwo = stackInSlotTwo.getName().getString();
-        String actualItemNameSlotThree = stackInSlotThree.getName().getString();
-        String actualItemNameSlotFour = stackInSlotFour.getName().getString();
-        String actualItemNameSlotFive = stackInSlotFive.getName().getString();
+        String actualItemNameSlotOne = stackInSlotOne.getItemName().getString();
+        String actualItemNameSlotTwo = stackInSlotTwo.getItemName().getString();
+        String actualItemNameSlotThree = stackInSlotThree.getItemName().getString();
+        String actualItemNameSlotFour = stackInSlotFour.getItemName().getString();
+        String actualItemNameSlotFive = stackInSlotFive.getItemName().getString();
 
         assertEquals(expectedItemName, actualItemNameSlotOne);
         assertEquals(expectedItemName, actualItemNameSlotTwo);
@@ -116,21 +117,21 @@ class InventorySorterTest {
     @Test
     void given3Pickaxes_WhenSortingInventory_ThenDoNotCombine() {
         // Arrange
-        Inventory inventory = new SimpleInventory(32);
+        Container inventory = new SimpleContainer(32);
         int expectedStackSize = 1;
 
         ItemStack expectedItemSlotOne = new ItemStack(Items.DIAMOND_PICKAXE, expectedStackSize);
         ItemStack expectedItemSlotTwo = new ItemStack(Items.DIAMOND_PICKAXE, expectedStackSize);
         ItemStack expectedItemSlotThree = new ItemStack(Items.DIAMOND_PICKAXE, expectedStackSize);
-        inventory.setStack(slotTwo, expectedItemSlotOne);
-        inventory.setStack(slotFour, expectedItemSlotTwo);
-        inventory.setStack(slotTen, expectedItemSlotThree);
+        inventory.setItem(slotTwo, expectedItemSlotOne);
+        inventory.setItem(slotFour, expectedItemSlotTwo);
+        inventory.setItem(slotTen, expectedItemSlotThree);
 
         // Act
         InventorySorter.sortInventory(inventory);
 
         // Assert
-        ItemStack actualItemSlotOne = inventory.getStack(slotOne);
+        ItemStack actualItemSlotOne = inventory.getItem(slotOne);
 
         assertEquals(expectedItemSlotOne, actualItemSlotOne);
         assertEquals(expectedStackSize, actualItemSlotOne.getCount());
@@ -139,24 +140,25 @@ class InventorySorterTest {
     @Test
     void givenNamedShulkerAndNormalShulkers_WhenSortingInventory_DontCombine() {
         // Arrange
-        Inventory inventory = new SimpleInventory(32);
+        Container inventory = new SimpleContainer(32);
         int expectedStackSize = 1;
         ItemStack renamedShulker = new ItemStack(Items.SHULKER_BOX, expectedStackSize);
         String shulkerCustomName = "Renamed Shulker";
-        renamedShulker.apply(DataComponentTypes.CUSTOM_NAME, Text.of(shulkerCustomName), text -> text);
+
+        renamedShulker.update(DataComponents.CUSTOM_NAME, Component.literal(shulkerCustomName), text -> text);
         ItemStack defaultShulker = new ItemStack(Items.SHULKER_BOX, expectedStackSize);
-        inventory.setStack(slotFour, renamedShulker);
-        inventory.setStack(slotTwo, defaultShulker);
-        inventory.setStack(slotThirtyTwo, defaultShulker);
+        inventory.setItem(slotFour, renamedShulker);
+        inventory.setItem(slotTwo, defaultShulker);
+        inventory.setItem(slotThirtyTwo, defaultShulker);
 
         // Act
         InventorySorter.sortInventory(inventory);
 
         // Assert
-        ItemStack firstStackInInventory = inventory.getStack(slotOne);
+        ItemStack firstStackInInventory = inventory.getItem(slotOne);
         assertEquals(expectedStackSize, firstStackInInventory.getCount());
-        assertTrue(inventory.containsAny(
-                stack -> stack.getName().getString()
+        assertTrue(inventory.hasAnyMatching(
+                stack -> stack.getHoverName().getString()
                         .equals(shulkerCustomName)));
     }
 
@@ -172,22 +174,23 @@ class InventorySorterTest {
     @Test
     void givenRenamedNameTagAndDefaultNameTags_WhenSortingInventory_DontCombineRenamedTagWithDefaultNameTags() {
         // Arrange
-        Inventory inventory = new SimpleInventory(32);
+        Container inventory = new SimpleContainer(32);
         ItemStack defaultNameTag = new ItemStack(Items.NAME_TAG, 1);
         String tagName = "Bob";
         ItemStack renamedNameTag = new ItemStack(Items.NAME_TAG, 1);
-        renamedNameTag.apply(DataComponentTypes.CUSTOM_NAME, Text.of(tagName), text -> text);
-        inventory.setStack(slotThree, defaultNameTag);
-        inventory.setStack(slotEight, defaultNameTag);
-        inventory.setStack(slotTen, defaultNameTag);
-        inventory.setStack(slotFive, renamedNameTag);
+        DataComponentPatch renamePatch = DataComponentPatch.builder().set(DataComponents.CUSTOM_NAME, Component.literal(tagName)).build();
+        renamedNameTag.applyComponents(renamePatch);
+        inventory.setItem(slotThree, defaultNameTag);
+        inventory.setItem(slotEight, defaultNameTag);
+        inventory.setItem(slotTen, defaultNameTag);
+        inventory.setItem(slotFive, renamedNameTag);
         int expectedAccumulatedStacks = 3;
         // Act
         InventorySorter.sortInventory(inventory);
 
         // Assert
-        ItemStack stackInSlotTwo = inventory.getStack(slotTwo);
-        assertTrue(inventory.containsAny(itemStack -> itemStack.getName().getString().equals(tagName)));
+        ItemStack stackInSlotTwo = inventory.getItem(slotTwo);
+        assertTrue(inventory.hasAnyMatching(itemStack -> itemStack.getHoverName().getString().equals(tagName)));
         assertEquals(expectedAccumulatedStacks, stackInSlotTwo.getCount());
     }
 }

@@ -1,11 +1,11 @@
 package com.noitcereon.simplesorting.interfaces;
 
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
 
 public interface IExtendedShulkerBoxScreenHandler {
-    Inventory getInventory();
+    Container getInventory();
 
-    boolean canUse(PlayerEntity player);
+    boolean canUse(Player player);
 }
