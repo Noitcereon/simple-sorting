@@ -6,8 +6,8 @@ import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 /**
  * The class intended to handle all things related to in-game configuration of Noit's Simple Sorting.
@@ -66,14 +66,14 @@ public class SimpleSortingConfig {
         if(!loadSuccess) SimpleSortingModClient.LOGGER.warn("Failed to load configuration file, updating the config may have no effect.");
 
         YetAnotherConfigLib configLib = YetAnotherConfigLib.createBuilder()
-                .title(Text.literal("Noit's Simple Sorting config.")) // Used for narration.
+                .title(Component.literal("Noit's Simple Sorting config.")) // Used for narration.
                 .category(ConfigCategory.createBuilder()
-                        .name(Text.literal("Noit's Simple Sorting Configuration"))
-                        .tooltip(Text.literal("Contains all the configuration available for Noit's Simple Sorting."))
+                        .name(Component.literal("Noit's Simple Sorting Configuration"))
+                        .tooltip(Component.literal("Contains all the configuration available for Noit's Simple Sorting."))
                         .option(() -> {
                             Option.Builder<Integer> optionBuilder = Option.<Integer>createBuilder() // Defines type of config value, in this case Integer.
-                                    .name(Text.literal("Sort Button Horizontal Position"))
-                                    .description(OptionDescription.of(Text.literal("Controls the horizontal position of the Sort button (0 is left, 100 is right)")))
+                                    .name(Component.literal("Sort Button Horizontal Position"))
+                                    .description(OptionDescription.of(Component.literal("Controls the horizontal position of the Sort button (0 is left, 100 is right)")))
                                     .binding(
                                             70, // the default value
                                             () -> CONFIG_HANDLER.instance().sortBtnXCoordinatePercentage, // a field to get the current value from
@@ -88,8 +88,8 @@ public class SimpleSortingConfig {
                         })
                         .option(() -> {
                             Option.Builder<Integer> optionBuilder = Option.<Integer>createBuilder()
-                                    .name(Text.literal("Sort Button Vertical Position"))
-                                    .description(OptionDescription.of(Text.literal("Controls the vertical position of the Sort button (0 is top, 100 is bottom)")))
+                                    .name(Component.literal("Sort Button Vertical Position"))
+                                    .description(OptionDescription.of(Component.literal("Controls the vertical position of the Sort button (0 is top, 100 is bottom)")))
                                     .binding(
                                             5, // the default value
                                             () -> CONFIG_HANDLER.instance().sortBtnYCoordinatePercentage, // a field to get the current value from
